@@ -51,7 +51,7 @@ func main() {
 				switch e.Key {
 				case termbox.KeyArrowDown, termbox.KeyArrowLeft, termbox.KeyArrowRight, termbox.KeyArrowUp:
 					eventByte, eventByteErr := json.Marshal(e)
-					fmt.Println(string(eventByte))
+					//					fmt.Println(string(eventByte))
 					if nil != eventByteErr {
 						continue
 					}

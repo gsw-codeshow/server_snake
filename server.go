@@ -8,6 +8,7 @@ import (
 	"net"
 	"server_snake/snake"
 	"sync"
+	"time"
 
 	"github.com/nsf/termbox-go"
 )
@@ -37,6 +38,7 @@ func (server *Server) InitServer() {
 
 func (server *Server) BroadCast() {
 	for {
+		time.Sleep(snake.Speed)
 		server.contextMutex.Lock()
 		server.ConText.Update()
 		context, contextErr := json.Marshal(&server.ConText)
@@ -46,7 +48,6 @@ func (server *Server) BroadCast() {
 		server.contextMutex.Unlock()
 		server.ClientConnMutex.Lock()
 		for connName, conn := range server.ClientConn {
-			fmt.Println(string(context))
 			_, connErr := conn.Write(context)
 			if nil != connErr {
 				delete(server.ClientConn, connName)
